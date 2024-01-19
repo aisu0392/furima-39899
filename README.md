@@ -1,11 +1,15 @@
 ## ユーザーテーブル (users)
 
-|      Column       |    Type    |              Options               |
-|      ------       |    ----    |              -------               |
-|        id         |   integer  |      primary key, auto_increment   |
-|     username      |   string   |          not null, unique          |
-|       email       |   string   |          not null, unique          |
-|  password_digest  |   string   |             not null               |
+|       Column       |    Type    |              Options               |
+|       ------       |    ----    |              -------               |
+|      nickname      |   string   |            null :false             |
+|        email       |   string   |     null :false, unique: true      |
+| encrypted_password |   string   |            null :false             |
+|      last_name     |   string   |            null :false             |
+|      first_name    |   string   |            null :false             |
+|    last_name_kana  |   string   |            null :false             |
+|   first_name_kana  |   string   |            null :false             |
+|      birthdate     |    date    |            null :false             |
 
 
   
@@ -18,40 +22,40 @@
 
 |   Column    |    Type    |              Options               |
 |   ------    |    ----    |              -------               |
-|     id      |   integer  |      primary key, auto_increment   |
-|  seller_id  |   integer  |  foreign key, references: users(id)|
-|    name     |   string   |             not null               |
-| description |    text    |                                    |
-|    price    |   integer  |             not null               |
-|    state    |   string   |                                    |
-|   category  |   string   |                                    |
-|    image    |   string   |                                    |
+|     user    | references |  foreign key, references: users(id)|
+|    name     |   string   |            null :false             |
+| description |    text    |            null :false             |
+|    price    |   integer  |            null :false             |
+|   state_id  |   integer  |                                    |
+| category_id |   integer  |                                    |
 
 ### Association
 -belongs_to :user (foreign_key: 'seller_id')
--has_many :purchases
--has_and_belongs_to_many :categories
+-has_one :purchase
 
 ## 購入記録テーブル (purchases)
 
-|     Column      |    Type    |              Options               |
-|       id        |   integer  |    primary key, auto_increment     |
-|    buyer_id     |   integer  |  foreign key, references: users(id)|
-|     item_id     |   integer  |  foreign key, references: items(id)|
-|  purchase_date  |  datetime  |                                    |
-| purchase_price  |   integer  |                                    |
+|       Column        |    Type    |                     Options                     |
+|      buyer_id       |   integer  |       foreign key, references: users(id)        |
+|       item_id       |   integer  |       foreign key, references: items(id)        |
+| shipping_address_id |   integer  | foreign key, references: shipping_addresses(id) |
 
 ### Association
--belongs_to :user (foreign_key: 'buyer_id')
+-belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
 -belongs_to :item
+-belongs_to :shipping_address
 
 ## 発送先情報テーブル (shipping_addresses)
 
 |     Column      |    Type    |              Options               |
-|       id        |   integer  |      primary key, auto_increment   |
 |     user_id     |   integer  |  foreign key, references: users(id)|
 |   postal_code   |   string   |                                    |
-|    address      |   string   |                                    |
+|    prefecture   |   string   |             null: false            | 
+|      city       |   string   |             null: false            | 
+| street_address  |   string   |             null: false            | 
+|  building_name  |   string   |                                    | 
+|  phone_number   |   string   |             null: false            | 
+
 
 ### Association
 -belongs_to :user
