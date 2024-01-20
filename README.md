@@ -20,14 +20,17 @@
 
 ## 商品テーブル (items)
 
-|   Column    |    Type    |              Options               |
-|   ------    |    ----    |              -------               |
-|     user    | references |  foreign key, references: users(id)|
-|    name     |   string   |            null :false             |
-| description |    text    |            null :false             |
-|    price    |   integer  |            null :false             |
-|   state_id  |   integer  |                                    |
-| category_id |   integer  |                                    |
+|     Column      |    Type    |              Options                |
+|     ------      |    ----    |              -------                |
+|       user      | references |  foreign key, references: users(id) |
+|      name       |   string   |            null :false              |
+|   description   |    text    |            null :false              |
+|    category     |   string   |            null :false              |
+|   condition     |   string   |            null :false              |
+|   shipping_fee  |   string   |            null :false              |
+|    prefecture   |   string   |            null :false              |
+|shipping_duration|   string   |            null :false              |
+|      price      |   integer  |            null :false              |
 
 ### Association
 -belongs_to :user (foreign_key: 'seller_id')
@@ -36,19 +39,18 @@
 ## 購入記録テーブル (purchases)
 
 |       Column        |    Type    |                     Options                     |
-|      buyer_id       |   integer  |       foreign key, references: users(id)        |
+|      user_id       |   integer  |       foreign key, references: users(id)        |
 |       item_id       |   integer  |       foreign key, references: items(id)        |
-| shipping_address_id |   integer  | foreign key, references: shipping_addresses(id) |
 
 ### Association
--belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
+-belongs_to :buyer, class_name: 'User', foreign_key: 'user_id'
 -belongs_to :item
 -belongs_to :shipping_address
 
 ## 発送先情報テーブル (shipping_addresses)
 
 |     Column      |    Type    |              Options               |
-|     user_id     |   integer  |  foreign key, references: users(id)|
+|     user_id     |   integer  |                                    |
 |   postal_code   |   string   |                                    |
 |    prefecture   |   string   |             null: false            | 
 |      city       |   string   |             null: false            | 
@@ -58,5 +60,5 @@
 
 
 ### Association
--belongs_to :user
+-belongs_to :user, class_name: 'User', foreign_key: 'user_id'
 
