@@ -16,31 +16,35 @@
 ### Association
 -has_many :items
 -has_many :purchases
--has_one :shipping_address
 
 ## 商品テーブル (items)
 
 |     Column      |    Type    |              Options                |
 |     ------      |    ----    |              -------                |
-|       user      | references |  foreign key, references: users(id) |
+|       user      | references |    null: false, foreign_key: true   |
 |      name       |   string   |            null :false              |
 |   description   |    text    |            null :false              |
-|    category     |   string   |            null :false              |
-|   condition     |   string   |            null :false              |
-|   shipping_fee  |   string   |            null :false              |
-|    prefecture   |   string   |            null :false              |
-|shipping_duration|   string   |            null :false              |
+|    category     |   integer  |            null :false              |
+|   condition     |   integer  |            null :false              |
+|   shipping_fee  |   integer  |            null :false              |
+|    prefecture   |   integer  |            null :false              |
+|shipping_duration|   integer  |            null :false              |
 |      price      |   integer  |            null :false              |
 
 ### Association
 -belongs_to :user (foreign_key: 'seller_id')
 -has_one :purchase
+-belongs_to_active_hash :category
+-belongs_to_active_hash :condition
+-belongs_to_active_hash :shipping_fee
+-belongs_to_active_hash :prefecture
+-belongs_to_active_hash :shipping_duration
 
 ## 購入記録テーブル (purchases)
 
-|       Column        |    Type    |                     Options                     |
-|      user_id       |   integer  |       foreign key, references: users(id)        |
-|       item_id       |   integer  |       foreign key, references: items(id)        |
+|       Column       |     Type     |                  Options                    |
+|        user        |  references  |       null: false, foreign_key: true        |
+|        item        |  references  |       null: false, foreign_key: true        |
 
 ### Association
 -belongs_to :buyer, class_name: 'User', foreign_key: 'user_id'
@@ -51,8 +55,9 @@
 
 |     Column      |    Type    |              Options               |
 |     user_id     |   integer  |                                    |
-|   postal_code   |   string   |                                    |
-|    prefecture   |   string   |             null: false            | 
+|     purchase    |   integer  |   null: false, foreign_key: true   |
+|   postal_code   |   string   |             null: false            |
+|    prefecture   |   integer  |             null: false            | 
 |      city       |   string   |             null: false            | 
 | street_address  |   string   |             null: false            | 
 |  building_name  |   string   |                                    | 
@@ -61,4 +66,4 @@
 
 ### Association
 -belongs_to :user, class_name: 'User', foreign_key: 'user_id'
-
+-belongs_to :purchase
