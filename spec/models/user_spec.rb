@@ -70,28 +70,58 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
 
+      it '全角文字を含むパスワードでは登録できない' do
+        @user.password = 'パスワード１'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password は半角英数字混合で入力してください')
+      end
+
       it 'お名前(全角)は、名字と名前がそれぞれ必須であること' do
         @user.first_name = nil
         @user.valid?
         expect(@user.errors.full_messages).to include("First name can't be blank")
       end
 
-      it 'お名前(全角)は、全角（漢字・ひらがな・カタカナ）での入力が必須であること' do
+      it '姓（全角）が空だと登録できない' do
+        @user.last_name = nil
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name can't be blank")
+      end
+    
+      it '姓（全角）に半角文字が含まれていると登録できない' do
+        @user.last_name = 'Smith'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name は全角文字を使用してください")
+      end
+
+      it '名(全角)は、全角（漢字・ひらがな・カタカナ）での入力が必須であること' do
         @user.first_name = 'Smith'
         @user.valid?
         expect(@user.errors.full_messages).to include('First name は全角文字を使用してください')
       end
 
-      it 'お名前カナ(全角)は、名字と名前がそれぞれ必須であること' do
+      it '姓カナ(全角)は、名字と名前がそれぞれ必須であること' do
         @user.last_name_kana = nil
         @user.valid?
         expect(@user.errors.full_messages).to include("Last name kana can't be blank")
       end
 
-      it 'お名前カナ(全角)は、全角（カタカナ）での入力が必須であること' do
+      it '姓カナ(全角)は、全角（カタカナ）での入力が必須であること' do
         @user.last_name_kana = 'すみす'
         @user.valid?
         expect(@user.errors.full_messages).to include('Last name kana は全角カタカナ文字を使用してください')
+      end
+
+      it '名（カナ）が空だと登録できない' do
+        @user.first_name_kana = nil
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name kana can't be blank")
+      end
+    
+      it '名（カナ）にカタカナ以外の文字が含まれていると登録できない' do
+        @user.first_name_kana = 'かな123'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name kana は全角カタカナ文字を使用してください")
       end
 
       it '生年月日が必須であること' do
