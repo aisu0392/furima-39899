@@ -1,17 +1,18 @@
 class ItemsController < ApplicationController
+  
   def index
     @items = Item.all
   end
 
   def new
-    @items = Item.new
+    @item = Item.new
   end
 
   def create
-    @items = Item.new(item_params)
-
-    if @items.save
-      redirect_to root_path, notice: '商品を出品しました。'
+    
+    @item = current_user.items.new(item_params)
+    if @item.save
+      redirect_to root_path
     else
       render :new
     end
