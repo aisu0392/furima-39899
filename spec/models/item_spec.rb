@@ -13,6 +13,12 @@ RSpec.describe Item, type: :model do
   end
 
   context '新規登録ができない時' do
+    it 'userが紐付いていない場合' do
+      @item.user = nil
+      @item.valid?
+      expect(@item.errors[:user]).to include("must exist")
+    end
+
     it '商品画像がない場合' do
       @item.image = nil
       @item.valid?
