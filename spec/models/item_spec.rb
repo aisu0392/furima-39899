@@ -31,8 +31,6 @@ RSpec.describe Item, type: :model do
       expect(@item.errors[:description]).to include("can't be blank")
     end
 
-    # 他の必須項目に関するテストも同様に追加
-
     it 'カテゴリーの情報がない場合' do
       @item.category_id = nil
       expect(@item).not_to be_valid
