@@ -38,25 +38,25 @@ RSpec.describe Item, type: :model do
     end
 
     it 'カテゴリーの情報がない場合' do
-      @item.category_id = nil
+      @item.category_id = 0
       expect(@item).not_to be_valid
       expect(@item.errors[:category]).to include("can't be blank")
     end
 
     it '商品の状態の情報がない場合' do
-      @item.condition_id = nil
+      @item.condition_id = 0
       expect(@item).not_to be_valid
       expect(@item.errors[:condition]).to include("can't be blank")
     end
 
     it '配送料の負担の情報がない場合' do
-      @item.shipping_fee_id = nil
+      @item.shipping_fee_id = 0
       expect(@item).not_to be_valid
       expect(@item.errors[:shipping_fee]).to include("can't be blank")
     end
 
     it '発送までの日数の情報がない場合' do
-      @item.shipping_duration_id = nil
+      @item.shipping_duration_id = 0
       expect(@item).not_to be_valid
       expect(@item.errors[:shipping_duration]).to include("can't be blank")
     end
