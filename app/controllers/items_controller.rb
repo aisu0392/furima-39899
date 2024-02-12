@@ -33,7 +33,7 @@ class ItemsController < ApplicationController
     if @item.update(item_params)
       redirect_to item_path(@item), notice: '商品情報が更新されました。'
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
   
