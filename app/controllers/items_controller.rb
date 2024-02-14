@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :find_item, only: [:show, :edit, :update]
+  before_action :find_item, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit]
   
   def index
@@ -33,6 +33,11 @@ class ItemsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @item.destroy
+    redirect_to items_path, notice: '商品が削除されました。'
   end
   
   private
