@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :find_item, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :create, :edit]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
   
   def index
     @items = Item.includes(:user).order("created_at DESC")
@@ -36,8 +36,12 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @item.destroy
-    redirect_to items_path, notice: '商品が削除されました。'
+    if current_user.id == @item.user_id
+      @item.destroy
+      redirect_to items_path, notice: '商品が削除されました。'
+    else
+      redirect_to items_path, alert: '他のユーザーの商品は削除できません。'
+    end
   end
   
   private
