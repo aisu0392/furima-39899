@@ -38,10 +38,8 @@ class ItemsController < ApplicationController
   def destroy
     if current_user.id == @item.user_id
       @item.destroy
-      redirect_to items_path, notice: '商品が削除されました。'
-    else
-      redirect_to items_path, alert: '他のユーザーの商品は削除できません。'
     end
+    redirect_to root_path
   end
   
   private
