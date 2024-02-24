@@ -14,7 +14,7 @@ class PurchaseForm
 
   with_options presence: true do
     validates :shipping_address_attributes
-    validates :shipping_address_attributes, format: { with: /\A\d{3}-\d{4}\z/, message: 'は「3桁ハイフン4桁」の形式で入力してください' }, if: -> { shipping_address_attributes.present? && shipping_address_attributes[:postal_code].present? }
+    validates :shipping_address_attributes, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)" }, if: -> { shipping_address_attributes.present? && shipping_address_attributes[:postal_code].present? }
     validates :shipping_address_attributes, numericality: { only_integer: true }, if: -> { shipping_address_attributes.present? && shipping_address_attributes[:postal_code].present? }
     validates :shipping_address_attributes, inclusion: { in: Prefecture.all.map(&:id) }, if: -> { shipping_address_attributes.present? && shipping_address_attributes[:prefecture_id].present? }
     validates :shipping_address_attributes, length: { maximum: 255 }, if: -> { shipping_address_attributes.present? && shipping_address_attributes[:city].present? }
