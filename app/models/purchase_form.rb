@@ -20,7 +20,7 @@ class PurchaseForm
     validates :shipping_address_attributes, length: { maximum: 255 }, if: -> { shipping_address_attributes.present? && shipping_address_attributes[:city].present? }
     validates :shipping_address_attributes, length: { maximum: 255 }, if: -> { shipping_address_attributes.present? && shipping_address_attributes[:street_address].present? }
     validates :shipping_address_attributes, length: { maximum: 255 }, if: -> { shipping_address_attributes.present? && shipping_address_attributes[:building_name].present? }
-    validates :shipping_address_attributes, format: { with: /\A\d{10,11}\z/, message: 'は10桁以上11桁以内の半角数値のみ入力してください' }, if: -> { shipping_address_attributes.present? && shipping_address_attributes[:phone_number].present? }
+    validates :shipping_address_attributes, format: { with: /\A[0-9]{10,11}\z/, message: 'は10桁以上11桁以内の半角数値のみ入力してください' }, if: -> { shipping_address_attributes.present? && shipping_address_attributes[:phone_number].present? }
   end
 
   def save
