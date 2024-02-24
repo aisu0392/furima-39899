@@ -1,9 +1,16 @@
 class PurchasesController < ApplicationController
-  def index
-    # 任意の処理を追加
+  def create
+    @purchase_form = PurchaseForm.new(purchase_params)
+    if @purchase_form.save
+      # 成功時の処理
+    else
+      # 失敗時の処理
+    end
   end
 
-  def create
-    # 任意の処理を追加
+  private
+
+  def purchase_params
+    # パラメータを適切に設定
   end
 end
