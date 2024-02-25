@@ -1,10 +1,19 @@
 class PurchasesController < ApplicationController
+  
+  def index
+    @purchases = current_user.purchases # ログイン中のユーザーに関連する購入履歴を取得
+  end
+
   def create
     @purchase_form = PurchaseForm.new(purchase_params)
     if @purchase_form.save
       # 成功時の処理
+      flash[:success] = '購入が完了しました。'
+      redirect_to root_path
     else
       # 失敗時の処理
+      flash[:error] = '購入に失敗しました。入力内容を確認してください。'
+      render :new  
     end
   end
 
@@ -12,5 +21,10 @@ class PurchasesController < ApplicationController
 
   def purchase_params
     # パラメータを適切に設定
+    params.require(:purchase_form).permit(
+      :item_id,
+      :user_id,
+      shipping_address_attributes: [:postal_code, :prefecture_id, :city, :street_address, :building_name, :phone_number]
+    )
   end
 end
