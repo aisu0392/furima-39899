@@ -2,6 +2,7 @@ class PurchasesController < ApplicationController
   
   def index
     @purchases_form = PurchaseForm.new # ログイン中のユーザーに関連する購入履歴を取得
+    @item = Item.find(params[:item_id])
   end
 
   def create
