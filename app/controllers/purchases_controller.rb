@@ -1,7 +1,7 @@
 class PurchasesController < ApplicationController
   
   def index
-    @purchases = current_user.purchases # ログイン中のユーザーに関連する購入履歴を取得
+    @purchases_form = PurchaseForm.new(purchase_params) # ログイン中のユーザーに関連する購入履歴を取得
   end
 
   def create
@@ -21,10 +21,10 @@ class PurchasesController < ApplicationController
 
   def purchase_params
     # パラメータを適切に設定
-    params.require(:purchase_form).permit(
-      :item_id,
-      :user_id,
-      shipping_address_attributes: [:postal_code, :prefecture_id, :city, :street_address, :building_name, :phone_number]
-    )
+    params.require(:purchase_form).permit(:item_id, :user_id)
+  end
+
+  def shipping_address_params
+    params.require(:purchase_form).require(:shipping_address_attributes).permit(:postal_code, :prefecture_id, :city, :street_address, :building_name, :phone_number)
   end
 end
