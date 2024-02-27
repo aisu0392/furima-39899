@@ -1,7 +1,7 @@
 class PurchasesController < ApplicationController
   
   def index
-    @purchases_form = PurchaseForm.new(purchase_params) # ログイン中のユーザーに関連する購入履歴を取得
+    @purchases_form = PurchaseForm.new # ログイン中のユーザーに関連する購入履歴を取得
   end
 
   def create
