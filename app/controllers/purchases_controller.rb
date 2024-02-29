@@ -10,6 +10,7 @@ class PurchasesController < ApplicationController
   end
 
   def create
+    @item = Item.find(params[:item_id])
     @purchase_form = PurchaseForm.new(purchase_params)
     if @purchase_form.save
       # 成功時の処理
