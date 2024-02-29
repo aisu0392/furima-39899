@@ -1,8 +1,12 @@
 class PurchasesController < ApplicationController
   
   def index
-    @purchases_form = PurchaseForm.new # ログイン中のユーザーに関連する購入履歴を取得
+    @purchases_form = PurchaseForm.new 
     @item = Item.find(params[:item_id])
+  end
+
+  def new
+    @purchases_form = PurchaseForm.new
   end
 
   def create
@@ -12,7 +16,7 @@ class PurchasesController < ApplicationController
       redirect_to root_path
     else
       # 失敗時の処理
-      render :new, status: :unprocessable_entity  
+      render :index, status: :unprocessable_entity  
     end
   end
 
