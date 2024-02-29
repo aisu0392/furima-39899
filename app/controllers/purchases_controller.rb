@@ -9,12 +9,10 @@ class PurchasesController < ApplicationController
     @purchase_form = PurchaseForm.new(purchase_params)
     if @purchase_form.save
       # 成功時の処理
-      flash[:success] = '購入が完了しました。'
       redirect_to root_path
     else
       # 失敗時の処理
-      flash[:error] = '購入に失敗しました。入力内容を確認してください。'
-      render :new  
+      render :new, status: :unprocessable_entity  
     end
   end
 
