@@ -25,8 +25,11 @@ class PurchasesController < ApplicationController
 
   def purchase_params
     # パラメータを適切に設定
-    params.require(:purchase_form).permit(:item_id, :user_id)
+    params.require(:purchase_form).permit(:item_id, :quantity, :buyer_id, :payment_method, :shipping_address_attributes, :postal_code, :prefecture_id, :city, :street_address, :building_name, :phone_number)
   end
+
+  
+  
 
   def shipping_address_params
     params.require(:purchase_form).require(:shipping_address_attributes).permit(:postal_code, :prefecture_id, :city, :street_address, :building_name, :phone_number)
