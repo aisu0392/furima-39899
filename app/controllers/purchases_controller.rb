@@ -11,13 +11,14 @@ class PurchasesController < ApplicationController
 
   def create
     @item = Item.find(params[:item_id])
-    @purchase_form = PurchaseForm.new(purchase_params)
-    if @purchase_form.save
+    @purchases_form = PurchaseForm.new(purchase_params)
+    # binding.pry
+    if @purchases_form.save
       # 成功時の処理
       redirect_to root_path
     else
       # 失敗時の処理
-      render :index, status: :unprocessable_entity  
+      render :index, status: :unprocessable_entity
     end
   end
 
