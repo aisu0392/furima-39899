@@ -10,10 +10,12 @@ class PurchaseForm
     validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :city, presence: true
     validates :street_address, presence: true
-    validates :phone_number, format: { with: /\A[0-9]{10,11}\z/, message: 'is too short or invalid. Input only number' }
+    validates :phone_number, format: { with: /\A[0-9]+\z/, message: 'is invalid. Input only number' }, length: { minimum: 10, allow_blank: true, message: 'is too short' }
   end
 
   validates :building_name, length: { maximum: 255 }
+
+  
 
   def save
     return false unless valid?
