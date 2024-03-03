@@ -32,15 +32,3 @@ const pay = () => {
 window.addEventListener("turbo:load", pay);
 window.addEventListener("turbo:render", pay);      
       
-//       }
-//       numberElement.clear();
-//       expiryElement.clear();
-//       cvcElement.clear();
-//       document.getElementById("charge-form").submit();
-//     });
-//     e.preventDefault();
-//   });
-// };
-
-// window.addEventListener("turbo:load", pay);
-// window.addEventListener("turbo:render", pay);
