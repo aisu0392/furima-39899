@@ -6,6 +6,7 @@ class PurchaseForm
 
    # バリデーションの追加
    with_options presence: true do
+    validates :token, presence: { message: "can't be blank" }
     validates :postal_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Enter it as follows (e.g. 123-4567)' }
     validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :city, presence: true
@@ -14,8 +15,18 @@ class PurchaseForm
   end
 
   validates :building_name, length: { maximum: 255 }
-
   
+  validates :user, presence: true
+  validates :item, presence: true
+
+  def user
+    # userメソッドの実装には、user_idを元にUserモデルからユーザーオブジェクトを取得する処理を追加する必要があります
+    User.find_by(id: user_id)
+  end
+
+  def item
+    Item.find_by(id: item_id)
+  end
 
   def save
     return false unless valid?
