@@ -5,7 +5,7 @@ RSpec.describe PurchaseForm, type: :model do
     @user = FactoryBot.create(:user)
     @item = FactoryBot.create(:item)
     # PurchaseFormのインスタンスを作成
-    @purchase_form = FactoryBot.build(:purchase_form, user: @user, item: @item)
+    @purchase_form = FactoryBot.build(:purchase_form, user_id: @user, item_id: @item)
   end
 
   context '購入ができる時' do
@@ -16,15 +16,15 @@ RSpec.describe PurchaseForm, type: :model do
 
   context '購入ができない時' do
     it 'userが紐付いていないと保存ができないこと' do
-      @purchase_form.user = nil
+      @purchase_form.user_id = nil
       @purchase_form.valid?
-      expect(@purchase_form.errors[:user]).to include("must exist")
+      expect(@purchase_form.errors[:user_id]).to include("must exist")
     end
   
     it 'itemが紐付いていないと保存ができないこと' do
-      @purchase_form.item = nil
+      @purchase_form.item_id = nil
       @purchase_form.valid?
-      expect(@purchase_form.errors[:item]).to include("must exist")
+      expect(@purchase_form.errors[:item_id]).to include("must exist")
     end
 
     it 'tokenが空では登録できないこと' do

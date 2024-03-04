@@ -16,8 +16,9 @@ class PurchaseForm
 
   validates :building_name, length: { maximum: 255 }
   
-  validates :user, presence: true
-  validates :item, presence: true
+  validates :user_id, presence: { message: "must exist" }
+  validates :item_id, presence: { message: "must exist" }
+
 
   def user
     User.find_by(id: user_id)
@@ -26,6 +27,8 @@ class PurchaseForm
   def item
     Item.find_by(id: item_id)
   end
+
+  
 
   def save
     return false unless valid?
@@ -47,5 +50,8 @@ class PurchaseForm
   rescue ActiveRecord::RecordInvalid
     false
   end
+
+
+
 end
 
