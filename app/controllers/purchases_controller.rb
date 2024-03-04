@@ -1,9 +1,9 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create]
+  before_action :initialize_purchase_form, only: [:new, :index]
 
   
-  def index
-    @purchases_form = PurchaseForm.new 
+  def index 
     @item = Item.find(params[:item_id])
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     
@@ -13,7 +13,6 @@ class PurchasesController < ApplicationController
   end
 
   def new
-    @purchases_form = PurchaseForm.new
   end
 
   def create
@@ -51,8 +50,10 @@ class PurchasesController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def initialize_purchase_form
+    @purchases_form = PurchaseForm.new
+  end
   
-
   def shipping_address_params
     params.require(:purchase_form).require(:shipping_address_attributes).permit(:postal_code, :prefecture_id, :city, :street_address, :building_name, :phone_number)
   end

@@ -6,7 +6,6 @@ FactoryBot.define do
     street_address     { 'Example Street' }
     phone_number       { '1234567890' }
     token              {"tok_abcdefghijk00000000000000000"}
-    #user               { FactoryBot.create(:user) }
     item               { FactoryBot.create(:item) }
   end
 end

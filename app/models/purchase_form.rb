@@ -20,7 +20,6 @@ class PurchaseForm
   validates :item, presence: true
 
   def user
-    # userメソッドの実装には、user_idを元にUserモデルからユーザーオブジェクトを取得する処理を追加する必要があります
     User.find_by(id: user_id)
   end
 
