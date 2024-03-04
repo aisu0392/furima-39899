@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :find_item, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
-  # before_action :check_access_to_purchase, only: [:show]
+
   
   def index
     @items = Item.includes(:user).order("created_at DESC")
@@ -45,12 +45,6 @@ class ItemsController < ApplicationController
   
   private
 
-  # def check_access_to_purchase
-  #   # ログイン状態の場合かつ、自身が出品した商品の場合かつトップページに遷移しようとする場合
-  #   if user_signed_in? && current_user.id == @item.user_id
-  #     redirect_to root_path, alert: "自身が出品した商品にはアクセスできません。"
-  #   end
-  # end
 
   def find_item
     @item = Item.find(params[:id])

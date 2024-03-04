@@ -1,13 +1,13 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create]
-  #before_action :find_item, only: [:index, :new, :create]
 
   
   def index
     @purchases_form = PurchaseForm.new 
     @item = Item.find(params[:item_id])
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    if current_user == @item.user &&  Purchase.exists?(item_id: @item.id)
+    
+    if current_user == @item.user || (current_user != @item.user && Purchase.exists?(item_id: @item.id))
       redirect_to root_path
     end
   end
