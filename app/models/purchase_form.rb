@@ -2,7 +2,7 @@
 class PurchaseForm
   include ActiveModel::Model
 
-  attr_accessor :item_id, :user_id, :quantity, :buyer_id, :payment_method, :shipping_address, :postal_code, :prefecture_id, :city, :street_address, :building_name, :phone_number, :token
+  attr_accessor :item_id, :user_id, :shipping_address, :postal_code, :prefecture_id, :city, :street_address, :building_name, :phone_number, :token
 
    # バリデーションの追加
    with_options presence: true do
@@ -11,10 +11,10 @@ class PurchaseForm
     validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :city
     validates :street_address
-    validates :phone_number, format: { with: /\A[0-9]+\z/, message: 'is invalid. Input only number' }, length: { minimum: 10, maximum: 11, allow_blank: true, too_short: 'is too short', too_long: 'is too long' }
+    validates :phone_number, format: { with: /\A[0-9]+\z/, message: 'is invalid. Input only number' }, length: { minimum: 10, maximum: 11, too_short: 'is too short', too_long: 'is too long' }
   end
 
-  validates :building_name, length: { maximum: 255 }
+
   
   validates :user_id, presence: { message: "must exist" }
   validates :item_id, presence: { message: "must exist" }

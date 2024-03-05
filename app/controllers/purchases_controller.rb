@@ -29,8 +29,8 @@ class PurchasesController < ApplicationController
 
   def purchase_params
     # パラメータを適切に設定
-    params.require(:purchase_form).permit( :quantity, :buyer_id, :payment_method, :shipping_address_attributes, :postal_code, :prefecture_id, :city, :street_address, :building_name, :phone_number).merge(item_id: @item.id, user_id: current_user.id, token: params[:token])
-  end
+    params.require(:purchase_form).permit(:postal_code, :prefecture_id, :city, :street_address, :building_name, :phone_number).merge(item_id: @item.id, user_id: current_user.id, token: params[:token])
+  end   
 
   def pay_item(token)
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
