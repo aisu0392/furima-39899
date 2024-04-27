@@ -6,12 +6,12 @@ class PurchaseForm
 
    # バリデーションの追加
    with_options presence: true do
-    validates :token, presence: { message: "can't be blank" }
-    validates :postal_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Enter it as follows (e.g. 123-4567)' }
-    validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
+    validates :token, presence: { message: "を入力してください。" }
+    validates :postal_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'が無効です。次のように入力してください。 (例 123-4567)' }
+    validates :prefecture_id, numericality: { other_than: 1, message: "を選択してください。" }
     validates :city
     validates :street_address
-    validates :phone_number, format: { with: /\A[0-9]+\z/, message: 'is invalid. Input only number' }, length: { minimum: 10, maximum: 11, too_short: 'is too short', too_long: 'is too long' }
+    validates :phone_number, format: { with: /\A[0-9]+\z/, message: 'が無効です。数字のみ入力してください。' }, length: { minimum: 10, maximum: 11, too_short: 'が短すぎます。', too_long: 'が長すぎます。' }
   end
 
 
