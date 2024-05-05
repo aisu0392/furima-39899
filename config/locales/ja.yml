@@ -18,7 +18,7 @@ ja:
         shipping_fee_id: 送料負担
         condition_id: 商品の状態
         shipping_duration_id: 発送までの期間
-      shipping_address:
+      shipping_addresses:
         token: クレジットカード情報
         postal_code: 郵便番号
         prefecture_id: 都道府県
