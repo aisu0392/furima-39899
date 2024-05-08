@@ -22,13 +22,13 @@ RSpec.describe Item, type: :model do
     it '商品画像がない場合' do
       @item.image = nil
       @item.valid?
-      expect(@item.errors[:image]).to include("can't be blank")
+      expect(@item.errors[:image]).to include("商品画像を入力してください")
     end
 
     it '商品名がない場合' do
       @item.name = ''
       expect(@item).not_to be_valid
-      expect(@item.errors[:name]).to include("can't be blank")
+      expect(@item.errors[:name]).to include("商品名を入力してください")
     end
 
     it '商品説明がない場合' do
