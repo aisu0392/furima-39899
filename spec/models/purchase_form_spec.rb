@@ -35,61 +35,61 @@ RSpec.describe PurchaseForm, type: :model do
     it 'tokenが空では登録できない' do
       @purchase_form.token = nil
       @purchase_form.valid?
-      expect(@purchase_form.errors[:token]).to include("can't be blank")
+      expect(@purchase_form.errors[:token]).to include("を入力してください。")
     end
 
     it '郵便番号がない場合登録できない' do
       @purchase_form.postal_code = nil
       @purchase_form.valid?
-      expect(@purchase_form.errors[:postal_code]).to include("can't be blank")
+      expect(@purchase_form.errors[:postal_code]).to include("を入力してください")
     end
 
     it '郵便番号が不正な形式の場合登録できない' do
       @purchase_form.postal_code = '1234567'
       @purchase_form.valid?
-      expect(@purchase_form.errors[:postal_code]).to include('is invalid. Enter it as follows (e.g. 123-4567)')
+      expect(@purchase_form.errors[:postal_code]).to include('が無効です。次のように入力してください。 (例 123-4567)')
     end
 
     it '都道府県がない場合登録できない' do
       @purchase_form.prefecture_id = '1'
       @purchase_form.valid?
-      expect(@purchase_form.errors[:prefecture_id]).to include("can't be blank")
+      expect(@purchase_form.errors[:prefecture_id]).to include("を選択してください。")
     end
 
     it '市区町村がない場合登録できない' do
       @purchase_form.city = nil
       @purchase_form.valid?
-      expect(@purchase_form.errors[:city]).to include("can't be blank")
+      expect(@purchase_form.errors[:city]).to include("を入力してください")
     end
 
     it '番地がない場合登録できない' do
       @purchase_form.street_address = nil
       @purchase_form.valid?
-      expect(@purchase_form.errors[:street_address]).to include("can't be blank")
+      expect(@purchase_form.errors[:street_address]).to include("を入力してください")
     end
 
     it '電話番号がない場合登録できない' do
       @purchase_form.phone_number = nil
       @purchase_form.valid?
-      expect(@purchase_form.errors[:phone_number]).to include("can't be blank")
+      expect(@purchase_form.errors[:phone_number]).to include("を入力してください")
     end
 
     it '電話番号が9桁以下の場合登録できない' do
       @purchase_form.phone_number = '123'
       @purchase_form.valid?
-      expect(@purchase_form.errors[:phone_number]).to include('is too short')
+      expect(@purchase_form.errors[:phone_number]).to include('が短すぎます。')
     end
 
     it '電話番号が12桁以上の場合登録できない' do
       @purchase_form.phone_number = '123456789012'
       @purchase_form.valid?
-      expect(@purchase_form.errors[:phone_number]).to include('is too long')
+      expect(@purchase_form.errors[:phone_number]).to include('が長すぎます。')
     end
     
     it '電話番号が不正な形式の場合登録できない' do
       @purchase_form.phone_number = 'invalid_number'
       @purchase_form.valid?
-      expect(@purchase_form.errors[:phone_number]).to include('is invalid. Input only number')
+      expect(@purchase_form.errors[:phone_number]).to include('が無効です。数字のみ入力してください。')
     end
   end
 end
